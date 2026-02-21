@@ -99,7 +99,7 @@ export default function NotesClient() {
       {isModalOpen && (
         <>
           {/* {console.log("Modal rendering!")} */}
-          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <Modal>
             <NoteForm
               // onSubmit={handleCreateNote}
               onCancel={() => {
