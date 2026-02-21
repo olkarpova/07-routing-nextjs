@@ -12,7 +12,7 @@ export default async function Notes() {
 
     await queryClient.prefetchQuery({
         queryKey: ["notes", 1, "", 12],
-        queryFn: () => fetchNotes('Todo', 1, "", 12),
+        queryFn: () => fetchNotes(1, "", 12, 'Todo'),
     });
 
     return (
