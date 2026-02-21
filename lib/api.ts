@@ -1,5 +1,5 @@
 import axios from "axios";
-import  type { Note }  from "../types/note";
+import  type { Note, NoteTag }  from "../types/note";
 
 export interface FetchNotesResponse {
   notes: Note[];
@@ -7,25 +7,33 @@ export interface FetchNotesResponse {
 }
 
 export const fetchNotes = async (
-    page: number = 1,
-    search?: string,
-    perPage: number = 12
+  categoryIdOrTag?: string | NoteTag,
+  page: number = 1,
+  search?: string,
+  perPage: number = 12
 ): Promise<FetchNotesResponse> => {
+  const params: {
+    page: number;
+    perPage: number;
+    search?: string;
+    tag?: string | NoteTag;
+  } = { page, perPage, ...(search?.trim() && { search: search.trim() }) };
+  
+  if (categoryIdOrTag && categoryIdOrTag !== 'all') {
+    params.tag = categoryIdOrTag;
+  }
   const response = await axios.get<FetchNotesResponse>(
     "https://notehub-public.goit.study/api/notes",
       {
-          params: {
-              page,
-              perPage,
-              ...(search?.trim() && {search: search.trim()}),
+        params,
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
         },
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
-      },
     },
   );
+  console.log(response.data)
   return response.data;
-};
+  };
 
 // =====Функція для створення нотатки
 
