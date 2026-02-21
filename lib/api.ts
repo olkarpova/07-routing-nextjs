@@ -7,10 +7,10 @@ export interface FetchNotesResponse {
 }
 
 export const fetchNotes = async (
-  categoryIdOrTag?: string | NoteTag,
   page: number = 1,
   search?: string,
-  perPage: number = 12
+  perPage: number = 12,
+  categoryIdOrTag?: string | NoteTag
 ): Promise<FetchNotesResponse> => {
   const params: {
     page: number;
