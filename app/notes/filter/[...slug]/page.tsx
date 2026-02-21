@@ -11,7 +11,7 @@ const NotesByCategory = async ({ params }: NotesByCategoryProps) => {
     console.log("slug: " + slug);
     // const category = slug[0];
     const category = slug[0] === 'all' ? undefined : slug[0];
-    const response: FetchNotesResponse = await fetchNotes(category);
+    const response: FetchNotesResponse = await fetchNotes( 1, undefined, 12, category);
     return (
         <div>
             <h1>Notes { category ? `for "${category}"`: '(All)'}</h1>
