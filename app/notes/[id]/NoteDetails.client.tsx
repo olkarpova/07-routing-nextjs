@@ -35,6 +35,8 @@ const NoteDetailsClient = () => {
         <p className={css.tag}>{note.tag}</p>
         <p className={css.content}>{note.content}</p>
         <p className={css.date}>{formatteddate}</p>
+        {/* <img src={image[0]} alt={note.title} width={240} />
+        //next свариться бо teg img в next не використовують */}
       </div>
     </div>
   );

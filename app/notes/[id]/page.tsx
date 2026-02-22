@@ -6,7 +6,7 @@ import {
     dehydrate,
 } from "@tanstack/react-query";
 
-type NoteDetailsProps = {
+interface NoteDetailsProps {
     params: Promise<{ id: string }>;
     //===important!!! id = name of folder [id]====
 };
@@ -14,6 +14,11 @@ type NoteDetailsProps = {
 const NoteDetails = async ({ params }: NoteDetailsProps) => {
     //===== we need to do await for object=====
     const { id } = await params;
+
+    const note = await fetchNoteById(id);
+    console.log(note);
+    
+
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({

@@ -1,24 +1,35 @@
 import { fetchNotes } from "@/lib/api";
-import NoteList from "@/components/NoteList/NoteList";
-import type { FetchNotesResponse } from "@/lib/api";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import NotesClient from "./Notes.client";
 
-interface NotesByCategoryProps {
-    params: Promise<{slug: string[]}>;
-};
+interface NotesPageProps {
+    params: Promise<{slug: string[]}>
+}
 
-const NotesByCategory = async ({ params }: NotesByCategoryProps) => {
-    const { slug } = await params;
-    console.log("slug: " + slug);
-    // const category = slug[0];
-    const category = slug[0] === 'all' ? undefined : slug[0];
-    const response: FetchNotesResponse = await fetchNotes( 1, undefined, 12, category);
+export default async function NotesPage({ params }: NotesPageProps) {
+    const { slug } = await params
+    const tag = slug[0];
+    // await new Promise(r => setTimeout(r, 3000))
+    //імітація затримки
+    //рендериться список з затримкою
+    //тому треба loader
+    
+    const queryClient = new QueryClient();
+
+    // prefetch doesn't return any data, it saves it into the cash;
+    await queryClient.prefetchQuery({
+        queryKey: ['notes', { tag, page: 1 }], //{}- обʼєкт буде ключем категорії
+        queryFn: () => fetchNotes( 1, undefined, 12, tag )
+    })
     return (
         <div>
-            <h1>Notes { category ? `for "${category}"`: '(All)'}</h1>
-            {response?.notes?.length > 0 && <NoteList
-                items={response.notes} />}
-        </div>
-    );
-};
+            <main>
+                <HydrationBoundary state={dehydrate(queryClient)}>
+                    <NotesClient />
+                    {/*  client component NoteClient can use a cash */}
+                </HydrationBoundary>
+            </main>
+        </div>     
+    )
+}
 
-export default NotesByCategory;

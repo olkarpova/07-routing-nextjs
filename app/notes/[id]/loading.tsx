@@ -1,4 +1,4 @@
 'use client';
 export default function Loading () {
-    return  <p>LOADING...</p>
+    return  <p>LOADING NOTES DETAILS...</p>
 }
