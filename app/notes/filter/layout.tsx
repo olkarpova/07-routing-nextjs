@@ -12,7 +12,7 @@ const NotesLayout = ({ children, sidebar }: NotesLayoutProps) => {
         <section style={{
             display: "flex",
             gap: 20,
-            backgroundColor: "teal"
+            backgroundColor: "grey"
             }}
         >
             <Suspense fallback={<div>Loading categories...</div>}>{sidebar}</Suspense>

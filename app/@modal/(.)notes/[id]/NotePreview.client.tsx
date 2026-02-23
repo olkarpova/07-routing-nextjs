@@ -6,9 +6,11 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import css from "./NotePreview.module.css"
 import type { Note } from '@/types/note';
+import { useRouter } from 'next/navigation';
 
 const NotePreviewClient = () => {
   const { id } = useParams<{ id: string }>();
+  const router = useRouter();
 
   const { data: note, isLoading, error} = useQuery<Note>({
     queryKey: ['note', id],
@@ -22,9 +24,13 @@ const NotePreviewClient = () => {
   const formattedDate = note.updatedAt
     ? `Updated: ${note.updatedAt}`
     : `Created: ${note.createdAt}`;
+  
+  const handleClose = () => {
+    router.back();
+  };
 
   return (
-    <Modal>
+    <Modal onClose={handleClose}>
       <div className={css.container}>
       <div className={css.item}>
         <div className={css.header}>

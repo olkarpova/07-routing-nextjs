@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import css from "./Modal.module.css"
 
 interface ModalProps {
@@ -10,10 +9,9 @@ interface ModalProps {
 };
 
 const Modal = ({ children, onClose }: ModalProps) => {
-  const router = useRouter();
+
   
   const close = () => {
-    router.back();
     onClose?.()
   }
 
@@ -33,3 +31,5 @@ const Modal = ({ children, onClose }: ModalProps) => {
 };
 
 export default Modal;
+
+
