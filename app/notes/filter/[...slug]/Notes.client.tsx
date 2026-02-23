@@ -13,7 +13,7 @@ import NoteForm from "@/components/NoteForm/NoteForm";
 import css from "./page.module.css";
 
 interface NotesClientProps {
-  tag: string;
+  tag?: string;
 }
 
 export default function NotesClient({ tag }: NotesClientProps) {
@@ -24,7 +24,7 @@ export default function NotesClient({ tag }: NotesClientProps) {
 
   const { data, isLoading, isError } = useQuery<FetchNotesResponse>({
     queryKey: ["notes", { page, search, perPage, tag }],
-    queryFn: () => fetchNotes(1, search || undefined, perPage, tag),
+    queryFn: () => fetchNotes(page, search || undefined, perPage, tag),
     placeholderData: keepPreviousData,
     refetchOnMount: false,
     // Використовуємо prefetch з сервера

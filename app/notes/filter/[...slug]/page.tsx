@@ -8,7 +8,13 @@ interface NotesPageProps {
 
 export default async function NotesPage({ params }: NotesPageProps) {
     const { slug } = await params
-    const tag = slug[0] || "all";
+
+    let tag: string | undefined;
+    if (slug[0] === 'all') {
+        tag = undefined;
+    } else {
+        tag = slug[0];
+    }
     // await new Promise(r => setTimeout(r, 3000))
     //імітація затримки
     //рендериться список з затримкою
