@@ -8,7 +8,7 @@ interface NotesPageProps {
 
 export default async function NotesPage({ params }: NotesPageProps) {
     const { slug } = await params
-    const tag = slug[0];
+    const tag = slug[0] || "all";
     // await new Promise(r => setTimeout(r, 3000))
     //імітація затримки
     //рендериться список з затримкою
@@ -25,7 +25,7 @@ export default async function NotesPage({ params }: NotesPageProps) {
         <div>
             <main>
                 <HydrationBoundary state={dehydrate(queryClient)}>
-                    <NotesClient />
+                    <NotesClient tag={ tag } />
                     {/*  client component NoteClient can use a cash */}
                 </HydrationBoundary>
             </main>

@@ -7,10 +7,6 @@ import { useParams } from 'next/navigation';
 import css from "./NotePreview.module.css"
 import type { Note } from '@/types/note';
 
-// type Props = {
-//   params: Promise<{ id: string }>;
-// };
-
 const NotePreviewClient = () => {
   const { id } = useParams<{ id: string }>();
 

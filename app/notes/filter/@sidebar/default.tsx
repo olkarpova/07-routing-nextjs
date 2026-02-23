@@ -1,4 +1,3 @@
-'use client'
 import Link from "next/link"
 import css from "./SidebarNotes.module.css"
 
@@ -21,7 +20,7 @@ export default function SidebarNotes() {
                     <li key={id} className={css.menuItem}>
                         <Link
                             href={`/notes/filter/${id}`}
-                            className="css.menuLink"
+                            className={css.menuLink}
                         >
                             {label}
                         </Link>
